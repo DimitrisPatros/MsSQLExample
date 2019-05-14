@@ -6,7 +6,7 @@ namespace DataBase
     {
         static void Main(string[] args)
         {
-            var taga = new MsSql();
+            MsSql taga = new MsSql();
            // taga.ReadFormDatabase();
            // taga.SaveToJason();
             taga.LoadFromJason();

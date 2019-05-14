@@ -21,19 +21,14 @@ namespace DataBase
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
-                conn.ConnectionString = s3;
-                conn.Open();
+                ContactToDatabase(conn);
+
                 // Create the command
                 SqlCommand command = new SqlCommand("SELECT [id] ,[name],[price],[category] FROM[dbo].[item]", conn);
+                
                 // Add the parameters.
                 command.Parameters.Add(new SqlParameter("0", 1));
-
-                /* Get the rows and display on the screen!
-                 * This section of the code has the basic code
-                 * that will display the content from the Database Table
-                 * on the screen using an SqlDataReader. */
-
+                
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     Console.WriteLine("FirstColumn\tSecond Column\t\tThird Column\t\tForth Column\t");
@@ -46,12 +41,8 @@ namespace DataBase
                             double.Parse(reader[2].ToString()),
                             int.Parse(reader[3].ToString()));
                         Products.Add(temp);
-
                     }
                 }
-
-                //}_fileName.ToArray()
-
             }
             Console.WriteLine("Press any key to exit");
             Console.ReadLine();
@@ -78,13 +69,8 @@ namespace DataBase
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
-                conn.ConnectionString = s3;
-                conn.Open();
-
-                // Create the command
-                //SqlCommand insertCommand = new SqlCommand("Insert INTO item [name],[price],[category] values(@0,@1,@2)", conn);
-                // Add the parameters.
+                ContactToDatabase(conn);
+               
                 foreach (Item t in Products)
                 {
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO [dbo].[item]([name],[Price],[category])VALUES(@0,@1,@2)", conn);
@@ -101,9 +87,10 @@ namespace DataBase
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
-                conn.ConnectionString = s3;
-                conn.Open();
+                //string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
+                //conn.ConnectionString = s3;
+                //conn.Open();
+                ContactToDatabase(conn);
 
                 foreach (Item t in Products)
                 {
@@ -115,6 +102,20 @@ namespace DataBase
                 }
             }
         }
-    }
+        public void ContactToDatabase(SqlConnection conn)
+        {     
+        string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
+        conn.ConnectionString = s3;
+                conn.Open();
+        }
+
+
+
+
+
+
+}
+
+    
 }
 
