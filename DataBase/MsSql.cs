@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
 
 namespace DataBase
 {
@@ -15,7 +10,7 @@ namespace DataBase
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                ContactToDatabase(conn);
+                ConectToDatabase(conn);
                 // Create the command
                 SqlCommand command = new SqlCommand("SELECT [id] ,[name],[price],[category] FROM[dbo].[item]", conn);
                 // Add the parameters.
@@ -39,13 +34,12 @@ namespace DataBase
             Console.ReadLine();
         }
 
-       
 
         public void WrightoDatabase()
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                ContactToDatabase(conn);
+                ConectToDatabase(conn);
 
                 foreach (Item t in Products)
                 {
@@ -54,10 +48,10 @@ namespace DataBase
                     insertCommand.Parameters.Add(new SqlParameter("1", t.Price));
                     insertCommand.Parameters.Add(new SqlParameter("2", t.Category));
                     int c = insertCommand.ExecuteNonQuery();
-
                 }
             }
         }
+
 
         public void DeleteFromDatabase()
         {
@@ -66,25 +60,25 @@ namespace DataBase
                 //string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
                 //conn.ConnectionString = s3;
                 //conn.Open();
-                ContactToDatabase(conn);
+                ConectToDatabase(conn);
 
                 foreach (Item t in Products)
                 {
                     SqlCommand insertCommand = new SqlCommand("DELETE FROM [dbo].[item] WHERE [name]=@0 ", conn);
                     insertCommand.Parameters.Add(new SqlParameter("0", t.Name));
-                    //insertCommand.Parameters.Add(new SqlParameter("1", t.Price));
-                    //insertCommand.Parameters.Add(new SqlParameter("2", t.Category));
                     int c = insertCommand.ExecuteNonQuery();
                 }
             }
         }
 
-        public void ContactToDatabase(SqlConnection conn)
+
+        public void ConectToDatabase(SqlConnection conn)
         {
             string s3 = "Server =localhost; Database =SimpleStore; Integrated Security=SSPI;Persist Security Info=False;";
             conn.ConnectionString = s3;
             conn.Open();
         }
+
 
     }
 }

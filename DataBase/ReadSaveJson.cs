@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace DataBase
@@ -25,7 +23,6 @@ namespace DataBase
         {
             string data = File.ReadAllText(@"C:\Users\patro\Desktop\doc\tryToSaveToJason.json");
             Products = JsonConvert.DeserializeObject<List<Item>>(data);
-             
         }
     }
 }
